@@ -226,10 +226,12 @@ public class GestoreLibreriaUI extends JFrame{
             // Modalit? modifica: crea un nuovo dialog con campi modificabili
             mostraDialogModificaLibro(Libro);
         } else if (choice == 1) {
-            int confirm = JOptionPane.showConfirmDialog(this,
+            String[] deleteOptions = {"Sì", "No"};
+            int confirm = JOptionPane.showOptionDialog(this,
                     "Sei sicuro di voler eliminare il libro '" + Libro.getTitolo() + "'?",
-                    "Conferma Eliminazione", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-            if (confirm == JOptionPane.YES_OPTION) {
+                    "Conferma Eliminazione", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, deleteOptions, deleteOptions[1]);
+            if (confirm == 0) {
                 db.eliminaLibro(Libro);
                 JOptionPane.showMessageDialog(this, "Libro eliminato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -302,8 +304,11 @@ public class GestoreLibreriaUI extends JFrame{
 
         browseButtonAction(browseBtn, imagePathField, imagePreview, width, height);
 
-        int result = JOptionPane.showConfirmDialog(this, BookPanel, "Modifica Libro", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (result == JOptionPane.OK_OPTION) {
+        String[] modifyOptions = {"OK", "Annulla"};
+        int result = JOptionPane.showOptionDialog(this, BookPanel, "Modifica Libro", 
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, modifyOptions, modifyOptions[0]);
+        if (result == 0) {
             String newTitolo = titoloField.getText().trim();
             String newAutore = autoreField.getText().trim();
             String newIsbn = isbnField.getText().trim();
@@ -370,13 +375,15 @@ public class GestoreLibreriaUI extends JFrame{
      * @post Se confermato, il libro viene rimosso dal database e l'interfaccia viene aggiornata.
      */
     private void AzioneMenuPopup(Libro Libro) {
-        int confirm = JOptionPane.showConfirmDialog(this,
+        String[] deleteOptions = {"Sì", "No"};
+        int confirm = JOptionPane.showOptionDialog(this,
                 "Sei sicuro di voler eliminare il libro '" + Libro.getTitolo() + "'?",
                 "Conferma Eliminazione",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
+                JOptionPane.WARNING_MESSAGE,
+                null, deleteOptions, deleteOptions[1]);
 
-        if (confirm == JOptionPane.YES_OPTION) {
+        if (confirm == 0) {
             db.eliminaLibro(Libro);
             JOptionPane.showMessageDialog(this,
                     "Libro eliminato con successo!",
@@ -902,8 +909,11 @@ public class GestoreLibreriaUI extends JFrame{
             imageWrapper.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 
-            int result = JOptionPane.showConfirmDialog(null, BookPanel, "Nuovo libro", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            if (result == JOptionPane.OK_OPTION) {
+            String[] addOptions = {"OK", "Annulla"};
+            int result = JOptionPane.showOptionDialog(null, BookPanel, "Nuovo libro", 
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, addOptions, addOptions[0]);
+            if (result == 0) {
                 String titolo = titoloField.getText().trim();
                 String autore = autoreField.getText().trim();
                 String isbn = isbnField.getText().trim();
