@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Esegui Gestore Libreria",
+            "request": "launch",
+            "mainClass": "gestore_libreria.ui.GestoreLibreriaUI",
+            "projectName": "Gestore_Libreria",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole"
+        },
+        {
+            "type": "java",
+            "name": "Debug Gestore Libreria",
+            "request": "launch",
+            "mainClass": "gestore_libreria.ui.GestoreLibreriaUI",
+            "projectName": "Gestore_Libreria",
+            "args": "",
+            "vmArgs": "",
+            "console": "internalConsole",
+            "stopOnEntry": false
+        }
+    ]
+}

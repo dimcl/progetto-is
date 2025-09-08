@@ -1,0 +1,75 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Maven: Compila",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["compile"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$maven-compiler-java"]
+        },
+        {
+            "label": "Maven: Pulisci e Compila",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["clean", "compile"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$maven-compiler-java"]
+        },
+        {
+            "label": "Maven: Esegui Test",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["test"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$maven-compiler-java"]
+        },
+        {
+            "label": "Maven: Package JAR",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["package"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$maven-compiler-java"]
+        },
+        {
+            "label": "Esegui JAR",
+            "type": "shell",
+            "command": "java",
+            "args": ["-jar", "target/Gestore_Libreria-1.0-SNAPSHOT.jar"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "Maven: Package JAR"
+        }
+    ]
+}
