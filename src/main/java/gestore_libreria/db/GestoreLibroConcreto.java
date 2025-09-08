@@ -1,6 +1,6 @@
 package gestore_libreria.db;
 
-import gestore_libreria.memento.CopertinaCronologiaLibro;
+import gestore_libreria.memento.CustodeCronologiaLibro;
 import gestore_libreria.memento.MementoLibro;
 import gestore_libreria.model.Libro;
 import gestore_libreria.model.CriterioOrdinamento;
@@ -9,10 +9,10 @@ import gestore_libreria.observer.Soggetto;
 import java.util.List;
 
 // Questa classe ora implementa l'interfaccia GestoreLibro.
-public class GestoreLibroConcreto extends Soggetto implements GestoreLibro, CopertinaCronologiaLibro.OnMementoListener  {
+public class GestoreLibroConcreto extends Soggetto implements GestoreLibro, CustodeCronologiaLibro.OnMementoListener  {
 
     private final ImplementatoreRepositoryLibro repository;
-    private final CopertinaCronologiaLibro historyManager;
+    private final CustodeCronologiaLibro historyManager;
 
     /**
      * Costruisce una nuova istanza di GestoreLibroConcreto.
@@ -26,7 +26,7 @@ public class GestoreLibroConcreto extends Soggetto implements GestoreLibro, Cope
      */
     public GestoreLibroConcreto(ImplementatoreRepositoryLibro repository) {
         this.repository = repository;
-        this.historyManager = new CopertinaCronologiaLibro();
+        this.historyManager = new CustodeCronologiaLibro();
         this.historyManager.setOnMementoRestoreListener(this);
     }
 
@@ -37,7 +37,7 @@ public class GestoreLibroConcreto extends Soggetto implements GestoreLibro, Cope
      * @post Restituisce un'istanza non null di BookHistoryManager.
      * @return L'istanza di {@code BookHistoryManager}.
      */
-    public CopertinaCronologiaLibro getHistoryManager() {
+    public CustodeCronologiaLibro getHistoryManager() {
         return historyManager;
     }
 
@@ -213,10 +213,10 @@ public class GestoreLibroConcreto extends Soggetto implements GestoreLibro, Cope
  * @post Tutti gli osservatori sono notificati del cambiamento dopo il ripristino.
  */
     @Override
-    public void restore(MementoLibro memento, CopertinaCronologiaLibro.ActionDirection direction) {
+    public void restore(MementoLibro memento, CustodeCronologiaLibro.ActionDirection direction) {
         switch (memento.getOperationType()) {
             case ADD:
-                if (direction == CopertinaCronologiaLibro.ActionDirection.UNDO) {
+                if (direction == CustodeCronologiaLibro.ActionDirection.UNDO) {
                     repository.delete(memento.getBookState());
                     System.out.println("Undo ADD: Rimosso libro " + memento.getBookState().getTitolo());
                 } else {
@@ -225,7 +225,7 @@ public class GestoreLibroConcreto extends Soggetto implements GestoreLibro, Cope
                 }
                 break;
             case REMOVE:
-                if (direction == CopertinaCronologiaLibro.ActionDirection.UNDO) {
+                if (direction == CustodeCronologiaLibro.ActionDirection.UNDO) {
                     repository.save(memento.getBookState());
                     System.out.println("Undo DELETE: Riaggiunto libro " + memento.getBookState().getTitolo());
                 } else {
@@ -234,7 +234,7 @@ public class GestoreLibroConcreto extends Soggetto implements GestoreLibro, Cope
                 }
                 break;
             case UPDATE:
-                if (direction == CopertinaCronologiaLibro.ActionDirection.UNDO) {
+                if (direction == CustodeCronologiaLibro.ActionDirection.UNDO) {
                     repository.aggiorna(memento.getPreviousBookState());
                     System.out.println("Undo UPDATE: Ripristinato libro " + memento.getPreviousBookState().getTitolo() + " allo stato precedente.");
                 } else {
