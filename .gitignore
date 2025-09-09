@@ -48,3 +48,6 @@ logs/
 Books_db.db
 test.db
 *.db
+
+# Documentation files
+docs/
